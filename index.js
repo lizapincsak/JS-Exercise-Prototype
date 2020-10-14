@@ -83,8 +83,19 @@ Car.prototype.fill = function(gallons){
 }
 
 Car.prototype.drive = function (distance){
-  this.tank = this.tank - (this.milesPerGallon/this.odometer)
+const range = this.tank * this.milesPerGallon;
+this.odometer = this.odometer + distance;
+this.tank = range - distance;
+if (distance > range){
+  return `I ran out of fuel at ${this.odometer} miles!`
+} else {
+  this.odometer = this. odometer + distance;
+  this.tank = range - distance;
 }
+}
+
+const car1 = new Car('Mustang', 201);
+console.log(car1.drive(201));
 /*
   TASK 3
     - Write a Baby constructor subclassing Person.
@@ -114,10 +125,13 @@ console.log(babybaby);
   TASK 4
 
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. Explicit Binding: 
+    a. .call(): immediately invokes a function, we pass in argyments 1 by 1
+    b. .apply(): invokes function immediately, we pass in arguemnts as an array
+    c. .bind(): pass in arguments 1 by 1 but it does not immediately invoke the function, but returns a brand new function that can be invoked later
+  2. Implcit Binding: applies to objects with methods, when the function is invoked, look to the left of the dot, that's what "this" refers to
+  3. Window Binding: if we don't give this any context it will return the window/ the global object in node and it will return undefined in strict mode
+  4. New Binding: using the new keyword constructs a new object and 'this' points to it. When a function is invoked as a constructor function, using the 'new' keyword 'this' points to the new object that's created
 */
 
 
